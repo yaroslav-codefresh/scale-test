@@ -2,7 +2,7 @@ set -e
 
 source ./prepare_aws_cluster.sh
 
-export CPU_COUNT=8
+export CPU_COUNT=4
 export MEMORY_GIB=32
 
 
@@ -65,6 +65,10 @@ export KARPENTER_IAM_ROLE_ARN="arn:aws:iam::${AWS_ACCOUNT_ID}:role/${CLUSTER_NAM
 
 echo "Creating create-service-linked-role..."
 aws iam create-service-linked-role --aws-service-name spot.amazonaws.com || true
+
+echo "Updating kubeconfig..."
+# Connect to cluster
+aws eks update-kubeconfig --alias ${CLUSTER_NAME} --name ${CLUSTER_NAME} --region ${AWS_DEFAULT_REGION} --profile ${AWS_PROFILE}
 
 echo "Installing Karpenter..."
 # Install Karpenter
@@ -143,7 +147,3 @@ spec:
   subnetSelector:
     karpenter.sh/discovery: ${CLUSTER_NAME}
 EOF
-
-echo "Updating kubeconfig..."
-# Connect to cluster
-aws eks update-kubeconfig --alias ${CLUSTER_NAME} --name ${CLUSTER_NAME} --region ${AWS_DEFAULT_REGION} --profile ${AWS_PROFILE}
