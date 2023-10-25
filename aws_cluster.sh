@@ -1,7 +1,12 @@
-export CPU_COUNT=4
+set -e
+
+source ./prepare_aws_cluster.sh
+
+export CPU_COUNT=8
 export MEMORY_GIB=32
 
 
+echo "Creating cluster..."
 # Create cluster
 eksctl create cluster -f - << EOF
 ---
@@ -26,11 +31,13 @@ availabilityZones:
 - us-east-1b
 EOF
 
+echo "Exporting cluster endpoint..."
 export CLUSTER_ENDPOINT="$(aws eks describe-cluster --name ${CLUSTER_NAME} --query "cluster.endpoint" --output text)"
 
 # Create supporting infra
 TEMPOUT=$(mktemp)
 
+echo "Fetching carpenter..."
 curl -fsSL https://karpenter.sh/"${KARPENTER_VERSION}"/getting-started/getting-started-with-eksctl/cloudformation.yaml  > $TEMPOUT \
 && aws cloudformation deploy \
   --stack-name "Karpenter-${CLUSTER_NAME}" \
@@ -38,6 +45,7 @@ curl -fsSL https://karpenter.sh/"${KARPENTER_VERSION}"/getting-started/getting-s
   --capabilities CAPABILITY_NAMED_IAM \
   --parameter-overrides "ClusterName=${CLUSTER_NAME}"
 
+echo "Creating iamidentitymapping..."
 # Grant permissions
 eksctl create iamidentitymapping \
   --username system:node:{{EC2PrivateDNSName}} \
@@ -45,6 +53,7 @@ eksctl create iamidentitymapping \
   --arn "arn:aws:iam::${AWS_ACCOUNT_ID}:role/KarpenterNodeRole-${CLUSTER_NAME}" \
   --group system:bootstrappers \
   --group system:nodes
+echo "Creating iamserviceaccount..."
 eksctl create iamserviceaccount \
   --cluster "${CLUSTER_NAME}" --name karpenter --namespace karpenter \
   --role-name "${CLUSTER_NAME}-karpenter" \
@@ -54,8 +63,10 @@ eksctl create iamserviceaccount \
 
 export KARPENTER_IAM_ROLE_ARN="arn:aws:iam::${AWS_ACCOUNT_ID}:role/${CLUSTER_NAME}-karpenter"
 
+echo "Creating create-service-linked-role..."
 aws iam create-service-linked-role --aws-service-name spot.amazonaws.com || true
 
+echo "Installing Karpenter..."
 # Install Karpenter
 docker logout public.ecr.aws
 helm upgrade --install \
@@ -70,6 +81,7 @@ helm upgrade --install \
   --set settings.aws.interruptionQueueName=${CLUSTER_NAME} \
   --wait
 
+echo "Creating default provisioner..."
 # Create default Provisioner
 cat <<EOF | kubectl apply -f -
 apiVersion: karpenter.sh/v1alpha5
@@ -132,5 +144,6 @@ spec:
     karpenter.sh/discovery: ${CLUSTER_NAME}
 EOF
 
+echo "Updating kubeconfig..."
 # Connect to cluster
-aws eks update-kubeconfig --name ${CLUSTER_NAME} --region ${AWS_DEFAULT_REGION} --profile ${AWS_PROFILE}
+aws eks update-kubeconfig --alias ${CLUSTER_NAME} --name ${CLUSTER_NAME} --region ${AWS_DEFAULT_REGION} --profile ${AWS_PROFILE}
