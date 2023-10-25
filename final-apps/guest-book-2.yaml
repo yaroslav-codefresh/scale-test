@@ -1,18 +1,18 @@
 apiVersion: argoproj.io/v1alpha1
 kind: Application
 metadata:
-  name: test-app
+  name: guestbook-2
   finalizers:
     - resources-finalizer.argocd.argoproj.io/foreground
 spec:
   project: default
   source:
-    path: final-apps
-    repoURL: https://github.com/yaroslav-codefresh/scale-test.git
+    path: helm-guestbook
+    repoURL: https://github.com/yaroslav-codefresh/argocd-example-apps.git
     targetRevision: HEAD
   destination:
     name: in-cluster
-    namespace: gs-apps
+    namespace: test-app
   syncPolicy:
     automated:
       prune: false
