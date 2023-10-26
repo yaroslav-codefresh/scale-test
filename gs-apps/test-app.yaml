@@ -7,12 +7,12 @@ metadata:
 spec:
   project: default
   source:
-    path: helm-guestbook
-    repoURL: https://github.com/yaroslav-codefresh/argocd-example-apps.git
+    path: final-apps
+    repoURL: https://github.com/yaroslav-codefresh/scale-test.git
     targetRevision: HEAD
   destination:
     name: in-cluster
-    namespace: gs-apps
+    namespace: cf-runtime
   syncPolicy:
     automated:
       prune: true
