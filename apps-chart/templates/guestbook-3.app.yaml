@@ -1,7 +1,7 @@
 apiVersion: argoproj.io/v1alpha1
 kind: Application
 metadata:
-  name: guestbook-2
+  name: {{ .Values.spec.product }}-{{ .Values.spec.service }}-app-3
   finalizers:
     - resources-finalizer.argocd.argoproj.io/foreground
 spec:
@@ -12,7 +12,7 @@ spec:
     targetRevision: HEAD
   destination:
     name: in-cluster
-    namespace: test-app
+    namespace: {{ .Values.spec.product }}-{{ .Values.spec.service }}
   syncPolicy:
     automated:
       prune: false
