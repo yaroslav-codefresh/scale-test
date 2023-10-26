@@ -8,12 +8,12 @@ spec:
   generators:
     - list:
         elements:
-          - index: 1
-          - index: 2
-          - index: 3
+          - appCount: 1
+          - appCount: 2
+          - appCount: 3
   template:
     metadata:
-      name: {{ .Values.spec.product }}-{{ .Values.spec.service }}-appset-app-{{index}}
+      name: {{ .Values.spec.product }}-{{ .Values.spec.service }}-appset-app-{{appCount}}
       finalizers:
         - resources-finalizer.argocd.argoproj.io/foreground
     project: default
