@@ -12,7 +12,7 @@ spec:
     targetRevision: HEAD
   destination:
     name: in-cluster
-    namespace: test-app
+    namespace: gs-apps
   syncPolicy:
     automated:
       prune: false
