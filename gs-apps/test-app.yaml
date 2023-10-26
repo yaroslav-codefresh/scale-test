@@ -7,8 +7,8 @@ metadata:
 spec:
   project: default
   source:
-    path: final-apps
-    repoURL: https://github.com/yaroslav-codefresh/scale-test.git
+    path: helm-guestbook
+    repoURL: https://github.com/yaroslav-codefresh/argocd-example-apps.git
     targetRevision: HEAD
   destination:
     name: in-cluster
