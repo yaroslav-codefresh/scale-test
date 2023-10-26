@@ -1,5 +1,5 @@
 export AWS_PROFILE="cd-team"
-#aws sso login --profile ${AWS_PROFILE}
+aws sso login --profile ${AWS_PROFILE}
 
 export AWS_DEFAULT_REGION="us-east-1"
 export AWS_ACCOUNT_ID="$(aws sts get-caller-identity --query Account --output text)"
