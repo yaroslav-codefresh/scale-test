@@ -1,26 +1,21 @@
 apiVersion: argoproj.io/v1alpha1
 kind: Application
 metadata:
-  name: test-app
+  name: {{ .Values.spec.product }}-{{ .Values.spec.service }}-app-1
   finalizers:
     - resources-finalizer.argocd.argoproj.io/foreground
 spec:
   project: default
   source:
-    path: apps-chart
-    repoURL: https://github.com/yaroslav-codefresh/scale-test.git
+    path: helm-guestbook
+    repoURL: https://github.com/yaroslav-codefresh/argocd-example-apps.git
     targetRevision: HEAD
-    helm:
-      valuesObject:
-        spec:
-          service: asdf
-          product: asdf
   destination:
     name: in-cluster
-    namespace: cf-runtime
+    namespace: {{ .Values.spec.product }}-{{ .Values.spec.service }}
   syncPolicy:
     automated:
-      prune: true
+      prune: false
       selfHeal: true
       allowEmpty: false
     syncOptions:
