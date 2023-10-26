@@ -5,7 +5,7 @@ metadata:
   finalizers:
     - resources-finalizer.argocd.argoproj.io/foreground
 spec:
-#  project: default
+  project: default
   source:
     path: helm-guestbook
     repoURL: https://github.com/yaroslav-codefresh/argocd-example-apps.git
