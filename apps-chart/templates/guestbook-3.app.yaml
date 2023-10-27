@@ -11,7 +11,7 @@ spec:
     repoURL: https://github.com/yaroslav-codefresh/argocd-example-apps.git
     targetRevision: HEAD
   destination:
-    name: in-cluster
+    name: {{ .Values.spec.cluster }}
     namespace: {{ .Values.spec.product }}-{{ .Values.spec.service }}
   syncPolicy:
     automated:

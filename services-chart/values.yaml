@@ -1,2 +1,3 @@
 spec:
   product: test-product
+  cluster: in-cluster
