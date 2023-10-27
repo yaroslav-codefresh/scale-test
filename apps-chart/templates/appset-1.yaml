@@ -11,6 +11,8 @@ spec:
           - appCount: "1"
           - appCount: "2"
           - appCount: "3"
+  syncPolicy:
+    preserveResourcesOnDeletion: false
   template:
     metadata:
       name: {{ .Values.spec.product }}-{{ .Values.spec.service }}-appset-1-app-{{`{{appCount}}`}}
