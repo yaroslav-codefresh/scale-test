@@ -1,7 +1,7 @@
 apiVersion: argoproj.io/v1alpha1
 kind: Application
 metadata:
-  name: {{ .Values.spec.product }}-{{ .Values.spec.service }}-dev-app-4
+  name: dev-{{ .Values.spec.product }}-{{ .Values.spec.service }}-app-4
   finalizers:
     - resources-finalizer.argocd.argoproj.io/foreground
 spec:

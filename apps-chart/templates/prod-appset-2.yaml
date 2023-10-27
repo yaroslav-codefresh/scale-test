@@ -1,7 +1,7 @@
 apiVersion: argoproj.io/v1alpha1
 kind: ApplicationSet
 metadata:
-  name: {{ .Values.spec.product }}-{{ .Values.spec.service }}-prod-appset-2
+  name: prod-{{ .Values.spec.product }}-{{ .Values.spec.service }}-appset-2
   finalizers:
     - resources-finalizer.argocd.argoproj.io/foreground
 spec:
@@ -15,7 +15,7 @@ spec:
     preserveResourcesOnDeletion: false
   template:
     metadata:
-      name: {{ .Values.spec.product }}-{{ .Values.spec.service }}-prod-2-app-{{`{{appCount}}`}}
+      name: prod-{{ .Values.spec.product }}-{{ .Values.spec.service }}-appset-2-app-{{`{{appCount}}`}}
       finalizers:
         - resources-finalizer.argocd.argoproj.io/foreground
     spec:

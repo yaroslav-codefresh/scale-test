@@ -7,7 +7,7 @@ metadata:
 spec:
   project: default
   source:
-    path: services-chart-1
+    path: single-service-chart
     repoURL: https://github.com/yaroslav-codefresh/scale-test.git
     targetRevision: HEAD
     helm:
