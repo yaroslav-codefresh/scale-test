@@ -8,7 +8,9 @@ spec:
   generators:
     - list:
         elements:
-          - appCount: 1
+          - appCount: "1"
+          - appCount: "2"
+          - appCount: "3"
   template:
     metadata:
       name: {{ .Values.spec.product }}-appset-app-{{`{{appCount}}`}}
@@ -22,7 +24,7 @@ spec:
         targetRevision: HEAD
       destination:
         name: in-cluster
-        namespace: cf-runtime
+        namespace: {{ .Values.spec.product }}
       syncPolicy:
         automated:
           prune: false
