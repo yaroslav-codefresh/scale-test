@@ -15,7 +15,7 @@ spec:
     preserveResourcesOnDeletion: false
   template:
     metadata:
-      name: prod{{ .Values.spec.product }}-{{ .Values.spec.service }}-appset-3-app-{{`{{appCount}}`}}
+      name: prod-{{ .Values.spec.product }}-{{ .Values.spec.service }}-appset-3-app-{{`{{appCount}}`}}
       finalizers:
         - resources-finalizer.argocd.argoproj.io/foreground
     spec:
