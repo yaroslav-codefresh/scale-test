@@ -2,6 +2,8 @@ apiVersion: argoproj.io/v1alpha1
 kind: ApplicationSet
 metadata:
   name: prod-{{ .Values.spec.product }}-{{ .Values.spec.service }}-appset-3
+  annotations:
+    "codefresh.io/product": {{ .Values.spec.product }}
   finalizers:
     - resources-finalizer.argocd.argoproj.io/foreground
 spec:
