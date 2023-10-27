@@ -7,11 +7,9 @@ metadata:
 spec:
   project: default
   source:
-    path: services-chart
+    path: apps-chart
     repoURL: https://github.com/yaroslav-codefresh/scale-test.git
     targetRevision: HEAD
-    directory:
-      include: 'service-1.yaml'
     helm:
       valuesObject:
         spec:
