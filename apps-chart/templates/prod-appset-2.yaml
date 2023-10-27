@@ -16,6 +16,8 @@ spec:
   template:
     metadata:
       name: prod-{{ .Values.spec.product }}-{{ .Values.spec.service }}-appset-2-app-{{`{{appCount}}`}}
+      annotations:
+        "codefresh.io/product": {{ .Values.spec.product }}
       finalizers:
         - resources-finalizer.argocd.argoproj.io/foreground
     spec:
