@@ -1,17 +1,17 @@
 apiVersion: argoproj.io/v1alpha1
 kind: Application
 metadata:
-  name: {{ .Values.spec.product }}-{{ .Values.spec.service }}-app-5
+  name: {{ .Values.spec.product }}-{{ .Values.spec.service }}-dev-app-3
   finalizers:
     - resources-finalizer.argocd.argoproj.io/foreground
 spec:
   project: default
   source:
-    path: helm-guestbook
-    repoURL: https://github.com/yaroslav-codefresh/argocd-example-apps.git
+    path: {{ .Values.spec.dev.path }}
+    repoURL: {{ .Values.spec.dev.repoUrl }}
     targetRevision: HEAD
   destination:
-    name: {{ .Values.spec.cluster }}
+    name: {{ .Values.spec.dev.cluster }}
     namespace: {{ .Values.spec.product }}-{{ .Values.spec.service }}
   syncPolicy:
     automated:

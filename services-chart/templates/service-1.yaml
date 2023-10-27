@@ -15,10 +15,9 @@ spec:
         spec:
           service: service-1
           product: {{ .Values.spec.product }}
-          cluster: {{ .Values.spec.cluster }}
   destination:
     name: in-cluster
-    namespace: cf-runtime
+    namespace: {{ .Values.spec.runtimeNamespace }}
   syncPolicy:
     automated:
       prune: false

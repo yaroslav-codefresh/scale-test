@@ -2,7 +2,7 @@ set -e
 
 source ./prepare_aws_cluster.sh
 
-#export CLUSTER_NAME="pysarenko"
+#export CLUSTER_NAME="vadim"
 
 aws eks update-kubeconfig --alias ${CLUSTER_NAME} --name ${CLUSTER_NAME} --region ${AWS_DEFAULT_REGION} --profile ${AWS_PROFILE}
 

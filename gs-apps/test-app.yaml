@@ -7,22 +7,18 @@ metadata:
 spec:
   project: default
   source:
-#    path: services-chart
-#    repoURL: https://github.com/yaroslav-codefresh/scale-test.git
-#    targetRevision: HEAD
-#    helm:
-#      valuesObject:
-#        spec:
-#          product: asdf
-    path: helm-guestbook
-    repoURL: https://github.com/yaroslav-codefresh/argocd-example-apps.git
+    path: services-chart
+    repoURL: https://github.com/yaroslav-codefresh/scale-test.git
     targetRevision: HEAD
-#  destination:
-#    name: in-cluster
-#    namespace: cf-runtime
+    directory:
+      include: 'service-1.yaml'
+    helm:
+      valuesObject:
+        spec:
+          product: test-app
   destination:
     name: in-cluster
-    namespace: asdf
+    namespace: cf-runtime
   syncPolicy:
     automated:
       prune: true

@@ -2,8 +2,9 @@ set -e
 
 source ./prepare_aws_cluster.sh
 
-export CPU_COUNT=4
-export MEMORY_GIB=32
+export CPU_COUNT=100
+export MEMORY_GIB=400
+#export CLUSTER_NAME="scale-prod"
 
 
 echo "Creating cluster..."
