@@ -15,6 +15,14 @@ spec:
         spec:
           service: service-7
           product: {{ .Values.spec.product }}
+          prod:
+            repoUrl: {{ .Values.spec.prod.repoUrl }}
+            cluster: {{ .Values.spec.prod.cluster }}
+            path: {{ .Values.spec.prod.path }}
+          dev:
+            repoUrl: {{ .Values.spec.dev.repoUrl }}
+            cluster: {{ .Values.spec.dev.cluster }}
+            path: {{ .Values.spec.dev.path }}
   destination:
     name: in-cluster
     namespace: {{ .Values.spec.runtimeNamespace }}
