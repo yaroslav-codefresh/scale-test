@@ -35,6 +35,16 @@ spec:
               cluster: scale-test
               path: dev
               repoUrl: https://github.com/oleksandr-codefresh/argo-load-product
+          - product: test-app-3
+            runtimeNamespace: argo-load-3
+            prod:
+              cluster: scale-prod
+              path: prod
+              repoUrl: https://github.com/oleksandr-codefresh/argo-load-product
+            dev:
+              cluster: scale-test
+              path: dev
+              repoUrl: https://github.com/oleksandr-codefresh/argo-load-product
   destination:
     name: in-cluster
     namespace: argo-load
