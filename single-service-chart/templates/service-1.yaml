@@ -28,7 +28,7 @@ spec:
             repoUrl: https://github.com/oleksandr-codefresh/argo-load-product-{{ $i }}
   destination:
     name: in-cluster
-    namespace: {{ $spec.runtimeNamespace }}
+    namespace: argo-load
   syncPolicy:
     automated:
       prune: true
