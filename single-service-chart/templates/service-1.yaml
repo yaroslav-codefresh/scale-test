@@ -1,10 +1,10 @@
-{{- range $i := 2 }}
+{{- range $i, $spec := .Values.specs }}
 apiVersion: argoproj.io/v1alpha1
 kind: Application
 metadata:
-  name: {{ .Values.spec.product }}-service-1
+  name: {{ $spec.product }}-service-1
   annotations:
-    "codefresh.io/product": {{ .Values.spec.product }}
+    "codefresh.io/product": {{ $spec.product }}
   finalizers:
     - resources-finalizer.argocd.argoproj.io/foreground
 spec:
@@ -17,7 +17,7 @@ spec:
       valuesObject:
         spec:
           service: service-1
-          product: {{ .Values.spec.product }}
+          product: {{ $spec.product }}
           prod:
             cluster: scale-prod
             path: prod
@@ -28,7 +28,7 @@ spec:
             repoUrl: https://github.com/oleksandr-codefresh/argo-load-product-{{ $i }}
   destination:
     name: in-cluster
-    namespace: {{ .Values.spec.runtimeNamespace }}
+    namespace: {{ $spec.runtimeNamespace }}
   syncPolicy:
     automated:
       prune: true

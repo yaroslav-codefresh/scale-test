@@ -14,17 +14,17 @@ spec:
     targetRevision: HEAD
     helm:
       valuesObject:
-        spec:
-          product: test-app
-          runtimeNamespace: argo-load
-          prod:
-            cluster: scale-prod
-            path: prod
-            repoUrl: https://github.com/oleksandr-codefresh/argo-load-product-1
-          dev:
-            cluster: scale-test
-            path: dev
-            repoUrl: https://github.com/oleksandr-codefresh/argo-load-product-1
+        specs:
+          - product: test-app
+            runtimeNamespace: argo-load
+            prod:
+              cluster: scale-prod
+              path: prod
+              repoUrl: https://github.com/oleksandr-codefresh/argo-load-product-1
+            dev:
+              cluster: scale-test
+              path: dev
+              repoUrl: https://github.com/oleksandr-codefresh/argo-load-product-1
   destination:
     name: in-cluster
     namespace: argo-load
