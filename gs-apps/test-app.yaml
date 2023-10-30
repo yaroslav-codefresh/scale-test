@@ -15,36 +15,36 @@ spec:
     helm:
       valuesObject:
         specs:
-          - product: test-app
-            runtimeNamespace: argo-load
-            prod:
-              cluster: scale-prod
-              path: prod
-              repoUrl: https://github.com/oleksandr-codefresh/argo-load-product
-            dev:
-              cluster: scale-test
-              path: dev
-              repoUrl: https://github.com/oleksandr-codefresh/argo-load-product
-          - product: test-app-2
-            runtimeNamespace: argo-load-2
-            prod:
-              cluster: scale-prod
-              path: prod
-              repoUrl: https://github.com/oleksandr-codefresh/argo-load-product
-            dev:
-              cluster: scale-test
-              path: dev
-              repoUrl: https://github.com/oleksandr-codefresh/argo-load-product
-          - product: test-app-3
-            runtimeNamespace: argo-load-3
-            prod:
-              cluster: scale-prod
-              path: prod
-              repoUrl: https://github.com/oleksandr-codefresh/argo-load-product
-            dev:
-              cluster: scale-test
-              path: dev
-              repoUrl: https://github.com/oleksandr-codefresh/argo-load-product
+        - product: test-app
+          runtimeNamespace: argo-load
+          prod:
+            cluster: scale-prod
+            path: prod
+            repoUrl: https://github.com/oleksandr-codefresh/argo-load-product
+          dev:
+            cluster: scale-test
+            path: dev
+            repoUrl: https://github.com/oleksandr-codefresh/argo-load-product
+        - product: test-app-2
+          runtimeNamespace: argo-load-2
+          prod:
+            cluster: scale-prod
+            path: prod
+            repoUrl: https://github.com/oleksandr-codefresh/argo-load-product
+          dev:
+            cluster: scale-test
+            path: dev
+            repoUrl: https://github.com/oleksandr-codefresh/argo-load-product
+        - product: test-app-3
+          runtimeNamespace: argo-load-3
+          prod:
+            cluster: scale-prod
+            path: prod
+            repoUrl: https://github.com/oleksandr-codefresh/argo-load-product
+          dev:
+            cluster: scale-test
+            path: dev
+            repoUrl: https://github.com/oleksandr-codefresh/argo-load-product
   destination:
     name: in-cluster
     namespace: argo-load
