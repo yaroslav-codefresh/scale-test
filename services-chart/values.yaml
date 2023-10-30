@@ -1,6 +1,6 @@
 spec:
   product: test-product
-  runtimeNamespace: cf-runtime
+  runtimeNamespace: argo-load
   prod:
     repoUrl: https://github.com/oleksandr-codefresh/argo-load-product
     cluster: in-cluster
