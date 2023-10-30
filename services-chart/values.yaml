@@ -4,8 +4,8 @@ spec:
   prod:
     repoUrl: https://github.com/oleksandr-codefresh/argo-load-product
     cluster: in-cluster
-    path: helm-guestbook
+    path: prod
   dev:
     repoUrl: https://github.com/oleksandr-codefresh/argo-load-product
     cluster: in-cluster
-    path: helm-guestbook
+    path: dev
