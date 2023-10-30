@@ -1,7 +1,7 @@
 apiVersion: argoproj.io/v1alpha1
 kind: Application
 metadata:
-  name: productA
+  name: product-a
   annotations:
     "codefresh.io/product": test-app
   finalizers:
@@ -14,8 +14,8 @@ spec:
     targetRevision: HEAD
     helm:
       valuesObject:
-        product: productA
-        runtimeNamespace: productA
+        product: product-a
+        runtimeNamespace: product-a
         prod:
           repoUrl: https://github.com/oleksandr-codefresh/argo-load-product
           cluster: scale-prod
