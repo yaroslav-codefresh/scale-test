@@ -22,6 +22,8 @@ spec:
       name: prod-{{ .Values.spec.product }}-{{ .Values.spec.service }}-appset-1-app-{{`{{appCount}}`}}
       annotations:
         "codefresh.io/product": {{ .Values.spec.product }}
+      labels:
+        cf.load-test: "by-appset"
       finalizers:
         - resources-finalizer.argocd.argoproj.io/foreground
     spec:
