@@ -15,15 +15,15 @@ spec:
     helm:
       valuesObject:
         product: product-a
-        runtimeNamespace: product-a
+        runtimeNamespace: argo-load
         prod:
           repoUrl: https://github.com/oleksandr-codefresh/argo-load-product
           cluster: scale-prod
-          path: helm-guestbook
+          path: prod
         dev:
           repoUrl: https://github.com/oleksandr-codefresh/argo-load-product
           cluster: scale-test
-          path: helm-guestbook
+          path: dev
   destination:
     name: in-cluster
     namespace: argo-load
