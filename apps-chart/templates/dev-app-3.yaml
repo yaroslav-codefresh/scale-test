@@ -4,6 +4,8 @@ metadata:
   name: dev-{{ .Values.spec.product }}-{{ .Values.spec.service }}-app-3
   annotations:
     "codefresh.io/product": {{ .Values.spec.product }}
+  labels:
+    cf.load-test: true
   finalizers:
     - resources-finalizer.argocd.argoproj.io/foreground
 spec:
