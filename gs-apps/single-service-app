@@ -1,7 +1,7 @@
 apiVersion: argoproj.io/v1alpha1
 kind: Application
 metadata:
-  name: test-app
+  name: single-service-app
   annotations:
     "codefresh.io/product": test-app
   finalizers:
