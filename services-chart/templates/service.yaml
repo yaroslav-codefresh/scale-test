@@ -1,10 +1,8 @@
-{{- range $i := 1 }}
+{{- range $i := 10 }}
 apiVersion: argoproj.io/v1alpha1
 kind: Application
 metadata:
   name: {{ .Values.spec.product }}-service-1
-  annotations:
-    "codefresh.io/product": {{ .Values.spec.product }}
   finalizers:
     - resources-finalizer.argocd.argoproj.io/foreground
 spec:
@@ -13,19 +11,19 @@ spec:
     path: apps-chart
     repoURL: https://github.com/yaroslav-codefresh/scale-test.git
     targetRevision: HEAD
-    helm:
-      valuesObject:
-        spec:
-          service: service-1
-          product: {{ .Values.spec.product }}
-          prod:
-            cluster: scale-prod
-            path: prod
-            repoUrl: https://github.com/oleksandr-codefresh/argo-load-product-{{ $i }}
-          dev:
-            cluster: scale-test
-            path: dev
-            repoUrl: https://github.com/oleksandr-codefresh/argo-load-product-{{ $i }}
+#    helm:
+#      valuesObject:
+#        spec:
+#          service: service-1
+#          product: {{ .Values.spec.product }}
+#          prod:
+#            repoUrl: {{ .Values.spec.prod.repoUrl }}-{{ $i }}
+#            cluster: {{ .Values.spec.prod.cluster }}
+#            path: {{ .Values.spec.prod.path }}
+#          dev:
+#            repoUrl: {{ .Values.spec.dev.repoUrl }}-{{ $i }}
+#            cluster: {{ .Values.spec.dev.cluster }}
+#            path: {{ .Values.spec.dev.path }}
   destination:
     name: in-cluster
     namespace: {{ .Values.spec.runtimeNamespace }}
@@ -43,4 +41,4 @@ spec:
       - ApplyOutOfSyncOnly=false
       - ServerSideApply=true
       - RespectIgnoreDifferences=false
-  {{- end }}
+{{- end }}
