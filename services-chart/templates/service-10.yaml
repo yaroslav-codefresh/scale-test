@@ -1,0 +1,42 @@
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: {{ .Values.spec.product }}-service-10
+  finalizers:
+    - resources-finalizer.argocd.argoproj.io/foreground
+spec:
+  project: default
+  source:
+    path: apps-chart
+    repoURL: https://github.com/yaroslav-codefresh/scale-test.git
+    targetRevision: HEAD
+    helm:
+      valuesObject:
+        spec:
+          service: service-10
+          product: {{ .Values.spec.product }}
+          prod:
+            repoUrl: {{ .Values.spec.prod.repoUrl }}-10
+            cluster: {{ .Values.spec.prod.cluster }}
+            path: {{ .Values.spec.prod.path }}
+          dev:
+            repoUrl: {{ .Values.spec.prod.repoUrl }}-10
+            cluster: {{ .Values.spec.dev.cluster }}
+            path: {{ .Values.spec.dev.path }}
+  destination:
+    name: in-cluster
+    namespace: {{ .Values.spec.runtimeNamespace }}
+  syncPolicy:
+    automated:
+      prune: true
+      selfHeal: true
+      allowEmpty: false
+    syncOptions:
+      - PrunePropagationPolicy=foreground
+      - Replace=false
+      - PruneLast=false
+      - Validate=true
+      - CreateNamespace=true
+      - ApplyOutOfSyncOnly=false
+      - ServerSideApply=false
+      - RespectIgnoreDifferences=false
