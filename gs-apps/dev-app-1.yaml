@@ -1,29 +1,29 @@
-#apiVersion: argoproj.io/v1alpha1
-#kind: Application
-#metadata:
-#  name: dev-app-1
-#  finalizers:
-#    - resources-finalizer.argocd.argoproj.io/foreground
-#spec:
-#  project: default
-#  source:
-#    path: apps-chart2
-#    repoURL: https://github.com/yaroslav-codefresh/scale-test
-#    targetRevision: HEAD
-#  destination:
-#    name: in-cluster
-#    namespace: argo-load
-#  syncPolicy:
-#    automated:
-#      prune: true
-#      selfHeal: true
-#      allowEmpty: true
-#    syncOptions:
-#      - PrunePropagationPolicy=foreground
-#      - Replace=false
-#      - PruneLast=false
-#      - Validate=true
-#      - CreateNamespace=true
-#      - ApplyOutOfSyncOnly=false
-#      - ServerSideApply=false
-#      - RespectIgnoreDifferences=false
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: dev-app-1
+  finalizers:
+    - resources-finalizer.argocd.argoproj.io/foreground
+spec:
+  project: default
+  source:
+    path: apps-chart2
+    repoURL: https://github.com/yaroslav-codefresh/scale-test
+    targetRevision: HEAD
+  destination:
+    name: in-cluster
+    namespace: argo-load
+  syncPolicy:
+    automated:
+      prune: true
+      selfHeal: true
+      allowEmpty: true
+    syncOptions:
+      - PrunePropagationPolicy=foreground
+      - Replace=false
+      - PruneLast=false
+      - Validate=true
+      - CreateNamespace=true
+      - ApplyOutOfSyncOnly=false
+      - ServerSideApply=false
+      - RespectIgnoreDifferences=false
