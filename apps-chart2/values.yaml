@@ -1,0 +1,11 @@
+spec:
+  product: test-product
+  service: test-service
+  prod:
+    repoUrl: https://github.com/yaroslav-codefresh/argocd-example-apps.git
+    cluster: in-cluster
+    path: helm-guestbook
+  dev:
+    repoUrl: https://github.com/yaroslav-codefresh/argocd-example-apps.git
+    cluster: in-cluster
+    path: helm-guestbook
