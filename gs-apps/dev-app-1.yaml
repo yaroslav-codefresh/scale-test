@@ -11,8 +11,8 @@ spec:
     repoURL: https://github.com/yaroslav-codefresh/scale-test
     targetRevision: HEAD
   destination:
-    name: scale-test
-    namespace: alex-test
+    name: in-cluster
+    namespace: argo-load
   syncPolicy:
     automated:
       prune: true
