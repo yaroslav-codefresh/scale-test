@@ -1,33 +1,33 @@
-apiVersion: argoproj.io/v1alpha1
-kind: Application
-metadata:
-  name: dev-{{ .Values.spec.product }}-{{ .Values.spec.service }}-app-3
-  annotations:
-    "codefresh.io/product": {{ .Values.spec.product }}
-  labels:
-    cf.load-test: "true"
-  finalizers:
-    - resources-finalizer.argocd.argoproj.io/foreground
-spec:
-  project: default
-  source:
-    path: {{ .Values.spec.dev.path }}
-    repoURL: {{ .Values.spec.dev.repoUrl }}
-    targetRevision: HEAD
-  destination:
-    name: {{ .Values.spec.dev.cluster }}
-    namespace: {{ .Values.spec.product }}-{{ .Values.spec.service }}
-  syncPolicy:
-    automated:
-      prune: true
-      selfHeal: true
-      allowEmpty: true
-    syncOptions:
-      - PrunePropagationPolicy=foreground
-      - Replace=false
-      - PruneLast=false
-      - Validate=true
-      - CreateNamespace=true
-      - ApplyOutOfSyncOnly=false
-      - ServerSideApply=false
-      - RespectIgnoreDifferences=false
+#apiVersion: argoproj.io/v1alpha1
+#kind: Application
+#metadata:
+#  name: dev-{{ .Values.spec.product }}-{{ .Values.spec.service }}-app-3
+#  annotations:
+#    "codefresh.io/product": {{ .Values.spec.product }}
+#  labels:
+#    cf.load-test: "true"
+#  finalizers:
+#    - resources-finalizer.argocd.argoproj.io/foreground
+#spec:
+#  project: default
+#  source:
+#    path: {{ .Values.spec.dev.path }}
+#    repoURL: {{ .Values.spec.dev.repoUrl }}
+#    targetRevision: HEAD
+#  destination:
+#    name: {{ .Values.spec.dev.cluster }}
+#    namespace: {{ .Values.spec.product }}-{{ .Values.spec.service }}
+#  syncPolicy:
+#    automated:
+#      prune: true
+#      selfHeal: true
+#      allowEmpty: true
+#    syncOptions:
+#      - PrunePropagationPolicy=foreground
+#      - Replace=false
+#      - PruneLast=false
+#      - Validate=true
+#      - CreateNamespace=true
+#      - ApplyOutOfSyncOnly=false
+#      - ServerSideApply=false
+#      - RespectIgnoreDifferences=false
