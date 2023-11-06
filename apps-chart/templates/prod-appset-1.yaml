@@ -31,7 +31,7 @@
 #        repoURL: {{ .Values.spec.prod.repoUrl }}
 #        targetRevision: HEAD
 #      destination:
-#        name: {{ .Values.spec.prod.cluster }}
+#        name: {{ .Values.spec.dev.cluster }}
 #        namespace: {{ .Values.spec.product }}-{{ .Values.spec.service }}
 #      syncPolicy:
 #        automated:
