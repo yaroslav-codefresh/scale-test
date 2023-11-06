@@ -11,11 +11,11 @@ metadata:
 spec:
   project: default
   source:
-    path: {{ .Values.spec.dev.path }}
-    repoURL: {{ .Values.spec.dev.repoUrl }}
+    path: {{ .Values.spec.prod.path }}
+    repoURL: {{ .Values.spec.prod.repoUrl }}
     targetRevision: HEAD
   destination:
-    name: {{ .Values.spec.dev.cluster }}
+    name: {{ .Values.spec.prod.cluster }}
     namespace: {{ .Values.spec.product }}-{{ .Values.spec.service }}
   syncPolicy:
     automated:
