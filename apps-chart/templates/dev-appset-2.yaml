@@ -1,0 +1,47 @@
+# apiVersion: argoproj.io/v1alpha1
+# kind: ApplicationSet
+# metadata:
+#   name: prod-{{ .Values.spec.product }}-{{ .Values.spec.service }}-appset-2
+#   annotations:
+#     "codefresh.io/product": {{ .Values.spec.product }}
+#   labels:
+#     cf.load-test: "true"
+# spec:
+#   generators:
+#     - list:
+#         elements:
+#           - appCount: "1"
+#           - appCount: "2"
+#           - appCount: "3"
+#   syncPolicy:
+#     preserveResourcesOnDeletion: false
+#   template:
+#     metadata:
+#       name: prod-{{ .Values.spec.product }}-{{ .Values.spec.service }}-appset-2-app-{{`{{appCount}}`}}
+#       annotations:
+#         "codefresh.io/product": {{ .Values.spec.product }}
+#       finalizers:
+#         - resources-finalizer.argocd.argoproj.io/foreground
+#     spec:
+#       project: default
+#       source:
+#         path: {{ .Values.spec.dev.path }}
+#         repoURL: {{ .Values.spec.dev.repoUrl }}
+#         targetRevision: HEAD
+#       destination:
+#         name: {{ .Values.spec.dev.cluster }}
+#         namespace: {{ .Values.spec.product }}-{{ .Values.spec.service }}
+#       syncPolicy:
+#         automated:
+#           prune: true
+#           selfHeal: true
+#           allowEmpty: true
+#         syncOptions:
+#           - PrunePropagationPolicy=foreground
+#           - Replace=false
+#           - PruneLast=false
+#           - Validate=true
+#           - CreateNamespace=true
+#           - ApplyOutOfSyncOnly=false
+#           - ServerSideApply=false
+#           - RespectIgnoreDifferences=false

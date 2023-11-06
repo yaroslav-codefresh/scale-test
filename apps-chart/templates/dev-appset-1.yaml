@@ -1,7 +1,7 @@
 apiVersion: argoproj.io/v1alpha1
 kind: ApplicationSet
 metadata:
-  name: prod-{{ .Values.spec.product }}-{{ .Values.spec.service }}-appset-2
+  name: prod-{{ .Values.spec.product }}-{{ .Values.spec.service }}-appset-1
   annotations:
     "codefresh.io/product": {{ .Values.spec.product }}
   labels:
@@ -17,19 +17,21 @@ spec:
     preserveResourcesOnDeletion: false
   template:
     metadata:
-      name: prod-{{ .Values.spec.product }}-{{ .Values.spec.service }}-appset-2-app-{{`{{appCount}}`}}
+      name: prod-{{ .Values.spec.product }}-{{ .Values.spec.service }}-appset-1-app-{{`{{appCount}}`}}
       annotations:
         "codefresh.io/product": {{ .Values.spec.product }}
+      labels:
+        cf.load-test: "by-appset"
       finalizers:
         - resources-finalizer.argocd.argoproj.io/foreground
     spec:
       project: default
       source:
-        path: {{ .Values.spec.prod.path }}
-        repoURL: {{ .Values.spec.prod.repoUrl }}
+        path: {{ .Values.spec.dev.path }}
+        repoURL: {{ .Values.spec.dev.repoUrl }}
         targetRevision: HEAD
       destination:
-        name: {{ .Values.spec.prod.cluster }}
+        name: {{ .Values.spec.dev.cluster }}
         namespace: {{ .Values.spec.product }}-{{ .Values.spec.service }}
       syncPolicy:
         automated:
