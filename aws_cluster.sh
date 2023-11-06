@@ -4,7 +4,7 @@ source ./prepare_aws_cluster.sh
 
 export CPU_COUNT=100
 export MEMORY_GIB=400
-#export CLUSTER_NAME="scale-prod"
+export CLUSTER_NAME="argo-load"
 
 
 echo "Creating cluster..."
@@ -83,6 +83,7 @@ helm upgrade --install \
   --set settings.aws.clusterName=${CLUSTER_NAME} \
   --set settings.aws.clusterEndpoint=${CLUSTER_ENDPOINT} \
   --set settings.aws.defaultInstanceProfile=KarpenterNodeInstanceProfile-${CLUSTER_NAME} \
+  --set controller.resources.limits.memory=2Gi \
   --set settings.aws.interruptionQueueName=${CLUSTER_NAME} \
   --wait
 
@@ -111,10 +112,14 @@ spec:
     values:
     #- on-demand
     - spot
+  - key: karpenter.k8s.aws/instance-cpu
+    operator: Gt
+    values:
+    - "3"
   - key: karpenter.k8s.aws/instance-memory
     operator: Gt
     values:
-    - "2048"
+    - "6000"
   - key: karpenter.k8s.aws/instance-family
     operator: NotIn
     values:
