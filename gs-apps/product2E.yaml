@@ -1,0 +1,44 @@
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: product-2e
+  annotations:
+    "codefresh.io/product": product-2e
+  finalizers:
+    - resources-finalizer.argocd.argoproj.io/foreground
+spec:
+  project: default
+  source:
+    path: services-chart
+    repoURL: https://github.com/yaroslav-codefresh/scale-test.git
+    targetRevision: HEAD
+    helm:
+      valuesObject:
+        spec:
+          product: product-2e
+          runtimeNamespace: argo-load
+          prod:
+            repoUrl: https://github.com/oleksandr-codefresh/argo-load-product-2
+            cluster: scale-prod
+            path: prod
+          dev:
+            repoUrl: https://github.com/oleksandr-codefresh/argo-load-product-2
+            cluster: scale-test
+            path: dev
+  destination:
+    name: in-cluster
+    namespace: argo-load
+  syncPolicy:
+    automated:
+      prune: true
+      selfHeal: true
+      allowEmpty: true
+    syncOptions:
+      - PrunePropagationPolicy=foreground
+      - Replace=false
+      - PruneLast=false
+      - Validate=true
+      - CreateNamespace=true
+      - ApplyOutOfSyncOnly=false
+      - ServerSideApply=false
+      - RespectIgnoreDifferences=false
