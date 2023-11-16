@@ -1,44 +1,44 @@
-apiVersion: argoproj.io/v1alpha1
-kind: Application
-metadata:
-  name: product-3c-sm
-  annotations:
-    "codefresh.io/product": product-3c-sm
-  finalizers:
-    - resources-finalizer.argocd.argoproj.io/foreground
-spec:
-  project: default
-  source:
-    path: services-small-chart
-    repoURL: https://github.com/yaroslav-codefresh/scale-test.git
-    targetRevision: HEAD
-    helm:
-      valuesObject:
-        spec:
-          product: product-3c-sm
-          runtimeNamespace: argo-load
-          prod:
-            repoUrl: https://github.com/oleksandr-codefresh/argo-load-product-3
-            cluster: scale-prod
-            path: prod
-          dev:
-            repoUrl: https://github.com/oleksandr-codefresh/argo-load-product-3
-            cluster: scale-test
-            path: dev
-  destination:
-    name: in-cluster
-    namespace: argo-load
-  syncPolicy:
-    automated:
-      prune: true
-      selfHeal: true
-      allowEmpty: true
-    syncOptions:
-      - PrunePropagationPolicy=foreground
-      - Replace=false
-      - PruneLast=false
-      - Validate=true
-      - CreateNamespace=true
-      - ApplyOutOfSyncOnly=false
-      - ServerSideApply=false
-      - RespectIgnoreDifferences=false
+# apiVersion: argoproj.io/v1alpha1
+# kind: Application
+# metadata:
+#   name: product-3c-sm
+#   annotations:
+#     "codefresh.io/product": product-3c-sm
+#   finalizers:
+#     - resources-finalizer.argocd.argoproj.io/foreground
+# spec:
+#   project: default
+#   source:
+#     path: services-small-chart
+#     repoURL: https://github.com/yaroslav-codefresh/scale-test.git
+#     targetRevision: HEAD
+#     helm:
+#       valuesObject:
+#         spec:
+#           product: product-3c-sm
+#           runtimeNamespace: argo-load
+#           prod:
+#             repoUrl: https://github.com/oleksandr-codefresh/argo-load-product-3
+#             cluster: scale-prod
+#             path: prod
+#           dev:
+#             repoUrl: https://github.com/oleksandr-codefresh/argo-load-product-3
+#             cluster: scale-test
+#             path: dev
+#   destination:
+#     name: in-cluster
+#     namespace: argo-load
+#   syncPolicy:
+#     automated:
+#       prune: true
+#       selfHeal: true
+#       allowEmpty: true
+#     syncOptions:
+#       - PrunePropagationPolicy=foreground
+#       - Replace=false
+#       - PruneLast=false
+#       - Validate=true
+#       - CreateNamespace=true
+#       - ApplyOutOfSyncOnly=false
+#       - ServerSideApply=false
+#       - RespectIgnoreDifferences=false
