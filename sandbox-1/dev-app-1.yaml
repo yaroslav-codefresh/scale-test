@@ -1,15 +1,30 @@
 apiVersion: argoproj.io/v1alpha1
 kind: Application
 metadata:
-  name: yarik-app-1
+  name: product-c-sm
+  annotations:
+    "codefresh.io/product": product-c-sm
   finalizers:
     - resources-finalizer.argocd.argoproj.io/foreground
 spec:
   project: default
   source:
-    repoURL: https://github.com/yaroslav-codefresh/argocd-example-apps.git
-    path: helm-guestbook
+    path: services-small-chart
+    repoURL: https://github.com/yaroslav-codefresh/scale-test.git
     targetRevision: HEAD
+    helm:
+      valuesObject:
+        spec:
+          product: product-c-sm
+          runtimeNamespace: yarik
+          prod:
+            repoUrl: https://github.com/oleksandr-codefresh/argo-load-product
+            cluster: in-cluster
+            path: prod
+          dev:
+            repoUrl: https://github.com/oleksandr-codefresh/argo-load-product
+            cluster: in-cluster
+            path: dev
   destination:
     name: in-cluster
     namespace: yarik
