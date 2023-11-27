@@ -1,8 +1,6 @@
 global:
   codefresh:
     accountId: 6422abe703c720761a07f3e0
-    userToken:
-      token: 6556389122bf66c162069708.1e667a8163dfa100d418c87b566335e2
     url: https://sandbox-1.codefresh.io
   runtime:
     name: yarik

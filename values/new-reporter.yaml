@@ -1,0 +1,14 @@
+global:
+  codefresh:
+    accountId: 5bf3ca2c702fed0008ee9a44
+    url: https://g.codefresh.io
+
+argo-cd:
+  eventReporter:
+    enabled: true
+    version: v2
+  server:
+    image:
+      repository: "docker.io/xeonalex/personal-argocd-dev"
+      tag: "reporting-v2-test-v20"
+      imagePullPolicy: "Always"
