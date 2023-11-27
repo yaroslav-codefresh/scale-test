@@ -1,44 +1,44 @@
-#apiVersion: argoproj.io/v1alpha1
-#kind: Application
-#metadata:
-#  name: one-service-app
-#  annotations:
-#    "codefresh.io/product": one-service-app
-#  finalizers:
-#    - resources-finalizer.argocd.argoproj.io/foreground
-#spec:
-#  project: default
-#  source:
-#    path: charts/single-service-chart
-#    repoURL: https://github.com/yaroslav-codefresh/scale-test.git
-#    targetRevision: HEAD
-#    helm:
-#      valuesObject:
-#        spec:
-#          product: one-service-app
-#          runtimeNamespace: new-reporter
-#          prod:
-#            repoUrl: https://github.com/oleksandr-codefresh/argo-load-product
-#            cluster: in-cluster
-#            path: prod
-#          dev:
-#            repoUrl: https://github.com/oleksandr-codefresh/argo-load-product
-#            cluster: in-cluster
-#            path: dev
-#  destination:
-#    name: in-cluster
-#    namespace: new-reporter
-#  syncPolicy:
-#    automated:
-#      prune: true
-#      selfHeal: true
-#      allowEmpty: true
-#    syncOptions:
-#      - PrunePropagationPolicy=foreground
-#      - Replace=false
-#      - PruneLast=false
-#      - Validate=true
-#      - CreateNamespace=true
-#      - ApplyOutOfSyncOnly=false
-#      - ServerSideApply=false
-#      - RespectIgnoreDifferences=false
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: one-service-app
+  annotations:
+    "codefresh.io/product": one-service-app
+  finalizers:
+    - resources-finalizer.argocd.argoproj.io/foreground
+spec:
+  project: default
+  source:
+    path: charts/single-service-chart
+    repoURL: https://github.com/yaroslav-codefresh/scale-test.git
+    targetRevision: HEAD
+    helm:
+      valuesObject:
+        spec:
+          product: one-service-app
+          runtimeNamespace: new-reporter
+          prod:
+            repoUrl: https://github.com/oleksandr-codefresh/argo-load-product
+            cluster: in-cluster
+            path: prod
+          dev:
+            repoUrl: https://github.com/oleksandr-codefresh/argo-load-product
+            cluster: in-cluster
+            path: dev
+  destination:
+    name: in-cluster
+    namespace: new-reporter
+  syncPolicy:
+    automated:
+      prune: true
+      selfHeal: true
+      allowEmpty: true
+    syncOptions:
+      - PrunePropagationPolicy=foreground
+      - Replace=false
+      - PruneLast=false
+      - Validate=true
+      - CreateNamespace=true
+      - ApplyOutOfSyncOnly=false
+      - ServerSideApply=false
+      - RespectIgnoreDifferences=false
