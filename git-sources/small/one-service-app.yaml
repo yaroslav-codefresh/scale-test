@@ -3,7 +3,7 @@ kind: Application
 metadata:
   name: product-c-sm
   annotations:
-    "codefresh.io/product": product-c-sm
+    "codefresh.io/product": one-service-app
   finalizers:
     - resources-finalizer.argocd.argoproj.io/foreground
 spec:
@@ -15,8 +15,8 @@ spec:
     helm:
       valuesObject:
         spec:
-          product: small-test
-          runtimeNamespace: yarik
+          product: one-service-app
+          runtimeNamespace: new-reporter
           prod:
             repoUrl: https://github.com/oleksandr-codefresh/argo-load-product
             cluster: in-cluster
@@ -27,7 +27,7 @@ spec:
             path: dev
   destination:
     name: in-cluster
-    namespace: yarik
+    namespace: new-reporter
   syncPolicy:
     automated:
       prune: true
