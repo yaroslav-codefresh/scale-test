@@ -7,7 +7,7 @@ metadata:
 spec:
   project: default
   source:
-    path: apps-chart
+    path: charts/apps-chart
     repoURL: https://github.com/yaroslav-codefresh/scale-test.git
     targetRevision: HEAD
     helm:
