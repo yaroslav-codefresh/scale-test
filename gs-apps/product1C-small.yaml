@@ -9,7 +9,7 @@ metadata:
 spec:
   project: default
   source:
-    path: services-small-chart
+    path: charts/services-small-chart
     repoURL: https://github.com/yaroslav-codefresh/scale-test.git
     targetRevision: HEAD
     helm:

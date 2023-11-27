@@ -9,7 +9,7 @@
 #spec:
 #  project: default
 #  source:
-#    path: single-service-chart
+#    path: charts/single-service-chart
 #    repoURL: https://github.com/yaroslav-codefresh/scale-test.git
 #    targetRevision: HEAD
 #    helm:

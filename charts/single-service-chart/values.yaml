@@ -1,0 +1,11 @@
+spec:
+  product: test-product
+  runtimeNamespace: argo-load
+  prod:
+    repoUrl: https://github.com/oleksandr-codefresh/argo-load-product
+    cluster: in-cluster
+    path: prod
+  dev:
+    repoUrl: https://github.com/oleksandr-codefresh/argo-load-product
+    cluster: in-cluster
+    path: dev
