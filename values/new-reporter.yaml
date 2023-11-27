@@ -7,6 +7,7 @@ argo-cd:
   eventReporter:
     enabled: true
     version: v2
+    replicas: 5
     image:
       repository: "docker.io/xeonalex/personal-argocd-dev"
       tag: "reporting-v2-test-v20"
