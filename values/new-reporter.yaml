@@ -8,12 +8,3 @@ argo-cd:
     enabled: true
     version: v2
     replicas: 5
-    image:
-      repository: "docker.io/xeonalex/personal-argocd-dev"
-      tag: "reporting-v2-test-v20"
-      imagePullPolicy: "Always"
-  server:
-    image:
-      repository: "docker.io/xeonalex/personal-argocd-dev"
-      tag: "reporting-v2-test-v20"
-      imagePullPolicy: "Always"

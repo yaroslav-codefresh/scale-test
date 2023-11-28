@@ -1,0 +1,21 @@
+global:
+  codefresh:
+    accountId: 61289cb0432d871402610bad
+    url: https://g.codefresh.io
+
+argo-cd:
+  eventReporter:
+    enabled: true
+    version: v2
+    replicas: 5
+    metrics:
+      enabled: true
+  configs:
+    params:
+      controller.status.processors: "25"
+      controller.operation.processors: "15"
+  controller:
+    resources:
+      requests:
+        cpu: "3"
+        memory: "4Gi"
