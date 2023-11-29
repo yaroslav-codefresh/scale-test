@@ -183,6 +183,7 @@
       },
       "hideTimeOverride": false,
       "id": 56,
+      "interval": "1h",
       "links": [],
       "maxDataPoints": 100,
       "options": {
@@ -207,8 +208,8 @@
             "uid": "$datasource"
           },
           "disableTextWrap": false,
-          "editorMode": "builder",
-          "expr": "sort_desc(quantile_over_time(0.5, cf_e_reporter_queue_size{job=\"argo-cd-event-reporter-metrics\"}[$__rate_interval]))",
+          "editorMode": "code",
+          "expr": "predict_linear(cf_e_reporter_queue_size{job=\"argo-cd-event-reporter-metrics\"}[2h], 60*10) ",
           "format": "time_series",
           "fullMetaSearch": false,
           "includeNullMetadata": true,
@@ -219,8 +220,7 @@
           "useBackend": false
         }
       ],
-      "timeFrom": "5m",
-      "title": "Current queue size",
+      "title": "Predicted queue size (10 mins)",
       "type": "stat"
     },
     {
@@ -1871,7 +1871,7 @@
     ]
   },
   "time": {
-    "from": "now-30m",
+    "from": "now-15m",
     "to": "now"
   },
   "timepicker": {
@@ -1902,6 +1902,6 @@
   "timezone": "",
   "title": "Codefresh argo-cd events reporter (v2) Copy",
   "uid": "c80f9007-2398-4f05-9a87-2b06586dddef",
-  "version": 15,
+  "version": 2,
   "weekStart": ""
 }
