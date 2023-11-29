@@ -64,8 +64,16 @@
                 "value": null
               },
               {
+                "color": "yellow",
+                "value": 200
+              },
+              {
+                "color": "orange",
+                "value": 400
+              },
+              {
                 "color": "red",
-                "value": 80
+                "value": 800
               }
             ]
           },
@@ -87,7 +95,7 @@
         "colorMode": "value",
         "graphMode": "none",
         "justifyMode": "auto",
-        "orientation": "horizontal",
+        "orientation": "auto",
         "reduceOptions": {
           "calcs": [
             "lastNotNull"
@@ -122,6 +130,100 @@
       "type": "stat"
     },
     {
+      "datasource": {
+        "type": "prometheus",
+        "uid": "$datasource"
+      },
+      "fieldConfig": {
+        "defaults": {
+          "color": {
+            "mode": "thresholds"
+          },
+          "mappings": [
+            {
+              "options": {
+                "match": "null",
+                "result": {
+                  "text": "N/A"
+                }
+              },
+              "type": "special"
+            }
+          ],
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "green",
+                "value": null
+              },
+              {
+                "color": "yellow",
+                "value": 200
+              },
+              {
+                "color": "orange",
+                "value": 400
+              },
+              {
+                "color": "red",
+                "value": 800
+              }
+            ]
+          },
+          "unit": "none"
+        },
+        "overrides": []
+      },
+      "gridPos": {
+        "h": 22,
+        "w": 4,
+        "x": 4,
+        "y": 1
+      },
+      "hideTimeOverride": false,
+      "id": 56,
+      "links": [],
+      "maxDataPoints": 100,
+      "options": {
+        "colorMode": "value",
+        "graphMode": "none",
+        "justifyMode": "auto",
+        "orientation": "auto",
+        "reduceOptions": {
+          "calcs": [
+            "lastNotNull"
+          ],
+          "fields": "",
+          "values": false
+        },
+        "text": {},
+        "textMode": "auto"
+      },
+      "pluginVersion": "10.1.5",
+      "targets": [
+        {
+          "datasource": {
+            "uid": "$datasource"
+          },
+          "disableTextWrap": false,
+          "editorMode": "builder",
+          "expr": "sort_desc(quantile_over_time(0.5, cf_e_reporter_queue_size{job=\"argo-cd-event-reporter-metrics\"}[$__rate_interval]))",
+          "format": "time_series",
+          "fullMetaSearch": false,
+          "includeNullMetadata": true,
+          "intervalFactor": 1,
+          "legendFormat": "{{reporter_shard}}",
+          "range": true,
+          "refId": "A",
+          "useBackend": false
+        }
+      ],
+      "timeFrom": "5m",
+      "title": "Current queue size",
+      "type": "stat"
+    },
+    {
       "aliasColors": {},
       "bars": false,
       "dashLength": 10,
@@ -134,8 +236,8 @@
       "fillGradient": 0,
       "gridPos": {
         "h": 14,
-        "w": 20,
-        "x": 4,
+        "w": 16,
+        "x": 8,
         "y": 1
       },
       "hiddenSeries": false,
@@ -230,8 +332,8 @@
       "fillGradient": 0,
       "gridPos": {
         "h": 8,
-        "w": 20,
-        "x": 4,
+        "w": 16,
+        "x": 8,
         "y": 15
       },
       "hiddenSeries": false,
@@ -580,7 +682,7 @@
         "min": false,
         "rightSide": true,
         "show": true,
-        "sort": "current",
+        "sort": "avg",
         "sortDesc": true,
         "total": false,
         "values": true
@@ -679,7 +781,7 @@
         "min": false,
         "rightSide": true,
         "show": true,
-        "sort": "current",
+        "sort": "avg",
         "sortDesc": true,
         "total": false,
         "values": true
@@ -1640,10 +1742,10 @@
         "current": {
           "selected": true,
           "text": [
-            "9"
+            "0"
           ],
           "value": [
-            "9"
+            "0"
           ]
         },
         "datasource": {
@@ -1769,7 +1871,7 @@
     ]
   },
   "time": {
-    "from": "now-15m",
+    "from": "now-30m",
     "to": "now"
   },
   "timepicker": {
@@ -1800,6 +1902,6 @@
   "timezone": "",
   "title": "Codefresh argo-cd events reporter (v2) Copy",
   "uid": "c80f9007-2398-4f05-9a87-2b06586dddef",
-  "version": 12,
+  "version": 15,
   "weekStart": ""
 }
