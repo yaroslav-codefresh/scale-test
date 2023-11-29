@@ -4,18 +4,38 @@ global:
     url: https://g.codefresh.io
 
 argo-cd:
-  eventReporter:
-    enabled: true
-    version: v2
-    replicas: 5
-    metrics:
-      enabled: true
-  configs:
-    params:
-      controller.status.processors: "25"
-      controller.operation.processors: "15"
+  repoServer:
+    replicas: 1
+    resources:
+      requests:
+        cpu: "1.3"
+        memory: "200Mi"
+
   controller:
+    replicas: 2
     resources:
       requests:
         cpu: "3"
         memory: "4Gi"
+  server:
+    replicas: 3
+    service:
+      type: LoadBalancer
+    resources:
+      requests:
+        cpu: "0.3"
+        memory: "400Mi"
+  eventReporter:
+    enabled: true
+    version: v2
+    replicas: 10
+    metrics:
+      enabled: true
+    resources:
+      requests:
+        cpu: "0.2"
+        memory: "200Mi"
+  configs:
+    params:
+      controller.status.processors: "25"
+      controller.operation.processors: "15"
