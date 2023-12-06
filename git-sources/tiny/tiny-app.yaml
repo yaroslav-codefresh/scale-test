@@ -21,11 +21,11 @@ spec:
           prod:
 #            repoUrl: https://github.com/oleksandr-codefresh/argo-load-product
             cluster: in-cluster
-            path: prod
+#            path: prod
           dev:
 #            repoUrl: https://github.com/oleksandr-codefresh/argo-load-product
             cluster: in-cluster
-            path: dev
+#            path: dev
   destination:
     name: in-cluster
     namespace: new-reporter
