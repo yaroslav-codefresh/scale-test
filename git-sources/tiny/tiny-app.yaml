@@ -19,11 +19,11 @@ spec:
           service: service-1
           runtimeNamespace: new-reporter
           prod:
-            repoUrl: https://github.com/oleksandr-codefresh/argo-load-product
+#            repoUrl: https://github.com/oleksandr-codefresh/argo-load-product
             cluster: in-cluster
             path: prod
           dev:
-            repoUrl: https://github.com/oleksandr-codefresh/argo-load-product
+#            repoUrl: https://github.com/oleksandr-codefresh/argo-load-product
             cluster: in-cluster
             path: dev
   destination:
