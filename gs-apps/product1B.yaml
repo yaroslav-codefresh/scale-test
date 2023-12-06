@@ -1,44 +1,44 @@
- apiVersion: argoproj.io/v1alpha1
- kind: Application
- metadata:
-   name: product-b
-   annotations:
-     "codefresh.io/product": product-b
-   finalizers:
-     - resources-finalizer.argocd.argoproj.io/foreground
- spec:
-   project: default
-   source:
-     path: charts/services-chart
-     repoURL: https://github.com/yaroslav-codefresh/scale-test.git
-     targetRevision: HEAD
-     helm:
-       valuesObject:
-         spec:
-           product: product-b
-           runtimeNamespace: argo-load
-           prod:
-             repoUrl: https://github.com/oleksandr-codefresh/argo-load-product
-             cluster: scale-prod
-             path: prod
-           dev:
-             repoUrl: https://github.com/oleksandr-codefresh/argo-load-product
-             cluster: scale-test
-             path: dev
-   destination:
-     name: in-cluster
-     namespace: argo-load
-   syncPolicy:
-     automated:
-       prune: true
-       selfHeal: true
-       allowEmpty: true
-     syncOptions:
-       - PrunePropagationPolicy=foreground
-       - Replace=false
-       - PruneLast=false
-       - Validate=true
-       - CreateNamespace=true
-       - ApplyOutOfSyncOnly=false
-       - ServerSideApply=false
-       - RespectIgnoreDifferences=false
+# apiVersion: argoproj.io/v1alpha1
+# kind: Application
+# metadata:
+#   name: product-b
+#   annotations:
+#     "codefresh.io/product": product-b
+#   finalizers:
+#     - resources-finalizer.argocd.argoproj.io/foreground
+# spec:
+#   project: default
+#   source:
+#     path: charts/services-chart
+#     repoURL: https://github.com/yaroslav-codefresh/scale-test.git
+#     targetRevision: HEAD
+#     helm:
+#       valuesObject:
+#         spec:
+#           product: product-b
+#           runtimeNamespace: argo-load
+#           prod:
+#             repoUrl: https://github.com/oleksandr-codefresh/argo-load-product
+#             cluster: scale-prod
+#             path: prod
+#           dev:
+#             repoUrl: https://github.com/oleksandr-codefresh/argo-load-product
+#             cluster: scale-test
+#             path: dev
+#   destination:
+#     name: in-cluster
+#     namespace: argo-load
+#   syncPolicy:
+#     automated:
+#       prune: true
+#       selfHeal: true
+#       allowEmpty: true
+#     syncOptions:
+#       - PrunePropagationPolicy=foreground
+#       - Replace=false
+#       - PruneLast=false
+#       - Validate=true
+#       - CreateNamespace=true
+#       - ApplyOutOfSyncOnly=false
+#       - ServerSideApply=false
+#       - RespectIgnoreDifferences=false
