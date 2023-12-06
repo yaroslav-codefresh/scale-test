@@ -7,7 +7,7 @@
 #spec:
 #  project: default
 #  source:
-#    path: charts/apps-chart2
+#    path: charts/apps-chart-tiny
 #    repoURL: https://github.com/yaroslav-codefresh/scale-test
 #    targetRevision: HEAD
 #  destination:
