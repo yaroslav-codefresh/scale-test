@@ -4,7 +4,6 @@ source ./prepare_aws_cluster.sh
 
 export CPU_COUNT=100
 export MEMORY_GIB=400
-export CLUSTER_NAME="argo-load"
 
 
 echo "Creating cluster..."
@@ -112,14 +111,10 @@ spec:
     values:
     #- on-demand
     - spot
-  - key: karpenter.k8s.aws/instance-cpu
-    operator: Gt
-    values:
-    - "3"
   - key: karpenter.k8s.aws/instance-memory
     operator: Gt
     values:
-    - "6000"
+    - "2048"
   - key: karpenter.k8s.aws/instance-family
     operator: NotIn
     values:

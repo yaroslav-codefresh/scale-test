@@ -23,7 +23,7 @@
 #             path: prod
 #           dev:
 #             repoUrl: https://github.com/oleksandr-codefresh/argo-load-product
-#             cluster: scale-test
+#             cluster: scale-prod
 #             path: dev
 #   destination:
 #     name: in-cluster

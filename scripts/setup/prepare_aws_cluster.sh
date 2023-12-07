@@ -6,4 +6,4 @@ export AWS_ACCOUNT_ID="$(aws sts get-caller-identity --query Account --output te
 
 export KUBERNETES_VERSION=1.27
 export KARPENTER_VERSION=v0.28.0
-#export CLUSTER_NAME="argo-load"
+export CLUSTER_NAME="alina"

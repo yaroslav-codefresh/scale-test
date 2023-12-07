@@ -22,7 +22,7 @@ spec:
             path: prod
             repoUrl: https://github.com/oleksandr-codefresh/argo-load-product
           dev:
-            cluster: scale-test
+            cluster: scale-prod
             path: dev
             repoUrl: https://github.com/oleksandr-codefresh/argo-load-product
         - product: test-app-2
@@ -32,7 +32,7 @@ spec:
             path: prod
             repoUrl: https://github.com/oleksandr-codefresh/argo-load-product
           dev:
-            cluster: scale-test
+            cluster: scale-prod
             path: dev
             repoUrl: https://github.com/oleksandr-codefresh/argo-load-product
         - product: test-app-3
@@ -42,7 +42,7 @@ spec:
             path: prod
             repoUrl: https://github.com/oleksandr-codefresh/argo-load-product
           dev:
-            cluster: scale-test
+            cluster: scale-prod
             path: dev
             repoUrl: https://github.com/oleksandr-codefresh/argo-load-product
   destination:
