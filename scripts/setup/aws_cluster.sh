@@ -38,7 +38,7 @@ export CLUSTER_ENDPOINT="$(aws eks describe-cluster --name ${CLUSTER_NAME} --que
 TEMPOUT=$(mktemp)
 
 echo "Fetching carpenter..."
-curl -fsSL https://karpenter.sh/"${KARPENTER_VERSION}"/getting-started/getting-started-with-eksctl/cloudformation.yaml  > $TEMPOUT \
+curl -fsSL https://raw.githubusercontent.com/aws/karpenter-provider-aws/"${KARPENTER_VERSION}"/website/content/en/preview/getting-started/getting-started-with-karpenter/cloudformation.yaml  > $TEMPOUT \
 && aws cloudformation deploy \
   --stack-name "Karpenter-${CLUSTER_NAME}" \
   --template-file "${TEMPOUT}" \
@@ -78,6 +78,7 @@ helm upgrade --install \
     --version ${KARPENTER_VERSION} \
     --namespace karpenter \
     --create-namespace \
+  --kube-context ${CLUSTER_NAME}\
   --set serviceAccount.annotations."eks\.amazonaws\.com/role-arn"=${KARPENTER_IAM_ROLE_ARN} \
   --set settings.aws.clusterName=${CLUSTER_NAME} \
   --set settings.aws.clusterEndpoint=${CLUSTER_ENDPOINT} \
