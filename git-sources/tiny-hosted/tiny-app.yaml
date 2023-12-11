@@ -1,45 +1,45 @@
-#apiVersion: argoproj.io/v1alpha1
-#kind: Application
-#metadata:
-#  name: tiny-app
-#  annotations:
-#    "codefresh.io/product": tiny-app
-#  finalizers:
-#    - resources-finalizer.argocd.argoproj.io/foreground
-#spec:
-#  project: default
-#  source:
-#    path: charts/apps-chart-tiny
-#    repoURL: https://github.com/yaroslav-codefresh/scale-test.git
-#    targetRevision: HEAD
-#    helm:
-#      valuesObject:
-#        spec:
-#          product: tiny-app
-#          service: service-1
-#          runtimeNamespace: codefresh-hosted
-#          prod:
-#            repoUrl: https://github.com/oleksandr-codefresh/argo-load-product-1
-#            cluster: scale-test
-#            path: prod
-#          dev:
-#            repoUrl: https://github.com/oleksandr-codefresh/argo-load-product-1
-#            cluster: scale-test
-#            path: dev
-#  destination:
-#    name: in-cluster
-#    namespace: codefresh-hosted
-#  syncPolicy:
-#    automated:
-#      prune: true
-#      selfHeal: true
-#      allowEmpty: true
-#    syncOptions:
-#      - PrunePropagationPolicy=foreground
-#      - Replace=false
-#      - PruneLast=false
-#      - Validate=true
-#      - CreateNamespace=true
-#      - ApplyOutOfSyncOnly=false
-#      - ServerSideApply=false
-#      - RespectIgnoreDifferences=false
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: tiny-app
+  annotations:
+    "codefresh.io/product": tiny-app
+  finalizers:
+    - resources-finalizer.argocd.argoproj.io/foreground
+spec:
+  project: default
+  source:
+    path: charts/apps-chart-tiny
+    repoURL: https://github.com/yaroslav-codefresh/scale-test.git
+    targetRevision: HEAD
+    helm:
+      valuesObject:
+        spec:
+          product: tiny-app
+          service: service-1
+          runtimeNamespace: codefresh-hosted
+          prod:
+            repoUrl: https://github.com/oleksandr-codefresh/argo-load-product-1
+            cluster: scale-test
+            path: prod
+          dev:
+            repoUrl: https://github.com/oleksandr-codefresh/argo-load-product-1
+            cluster: scale-test
+            path: dev
+  destination:
+    name: in-cluster
+    namespace: codefresh-hosted
+  syncPolicy:
+    automated:
+      prune: true
+      selfHeal: true
+      allowEmpty: true
+    syncOptions:
+      - PrunePropagationPolicy=foreground
+      - Replace=false
+      - PruneLast=false
+      - Validate=true
+      - CreateNamespace=true
+      - ApplyOutOfSyncOnly=false
+      - ServerSideApply=false
+      - RespectIgnoreDifferences=false
