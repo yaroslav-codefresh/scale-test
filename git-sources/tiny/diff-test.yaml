@@ -23,7 +23,7 @@ spec:
     - kind: ConfigMap
       group: v1
       jsonPointers:
-        - /
+        - /data
   source:
     path: resources/diff-test
     repoURL: https://github.com/yaroslav-codefresh/scale-test
