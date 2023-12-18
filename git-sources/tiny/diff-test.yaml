@@ -19,9 +19,11 @@ spec:
       - ApplyOutOfSyncOnly=false
       - ServerSideApply=false
       - RespectIgnoreDifferences=true
-#  ignoreDifferences:
-#    - kind: Pod
-#      group: v1
+  ignoreDifferences:
+    - kind: ConfigMap
+      group: v1
+      jsonPointers:
+        - /
   source:
     path: resources/diff-test
     repoURL: https://github.com/yaroslav-codefresh/scale-test
