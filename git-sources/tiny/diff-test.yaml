@@ -20,10 +20,10 @@ spec:
       - ServerSideApply=false
       - RespectIgnoreDifferences=true
   ignoreDifferences:
-    - kind: ConfigMap
-      group: v1
+    - kind: ClusterRole
+      group: rbac.authorization.k8s.io
       jsonPointers:
-        - /data
+        - /rules
   source:
     path: resources/diff-test
     repoURL: https://github.com/yaroslav-codefresh/scale-test
