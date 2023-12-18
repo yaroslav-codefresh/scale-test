@@ -19,11 +19,11 @@ spec:
       - ApplyOutOfSyncOnly=false
       - ServerSideApply=false
       - RespectIgnoreDifferences=true
-#  ignoreDifferences:
-#    - kind: ClusterRole
-#      group: rbac.authorization.k8s.io
-#      jsonPointers:
-#        - /rules
+  ignoreDifferences:
+    - group: "*"
+      kind: "*"
+      managedFieldsManagers:
+        - kubectl-client-side-apply
   source:
     path: resources/diff-test
     repoURL: https://github.com/yaroslav-codefresh/scale-test
