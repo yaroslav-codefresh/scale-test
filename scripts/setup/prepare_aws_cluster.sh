@@ -6,4 +6,4 @@ export AWS_ACCOUNT_ID="$(aws sts get-caller-identity --profile cd-team --query A
 
 export KUBERNETES_VERSION=1.27
 export KARPENTER_VERSION=v0.30.0
-export CLUSTER_NAME="alina-1"
+export CLUSTER_NAME="hosted"
