@@ -5,11 +5,6 @@ global:
   runtime:
     name: yarik
 
-argo-cd:
-  configs:
-    cm:
-      "application.resourceTrackingMethod": label
-
 tunnel-client:
   tunnelServer:
     host: register-tunnels.non-prod-ue1-sandbox-1.cf-op.com
