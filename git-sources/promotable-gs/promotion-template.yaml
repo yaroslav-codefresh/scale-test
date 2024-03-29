@@ -12,12 +12,12 @@ spec:
     file: Chart.yaml
     jsonPath: $.version
   promotion:
-    - version.yaml:
+    version.yaml:
       jsonPaths:
         - $.version
-    - Chart.yaml:
+    Chart.yaml:
       jsonPaths:
         - $.appVersion
-    - values.yaml:
+    values.yaml:
       jsonPaths:
         - $.image.tag
