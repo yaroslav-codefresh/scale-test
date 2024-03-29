@@ -1,0 +1,25 @@
+apiVersion: codefresh.io/v1beta1
+kind: PromotionTemplate
+metadata:
+  name: promotion-config
+spec:
+  applicationSourceSelector:
+    matchExpressions:
+      - key: app.kubernetes.io/instance
+        operator: Exists
+  priority: 0
+  versionSource:
+    file: Chart.yaml
+    jsonPath: $.version
+  promotion:
+    - version.yaml:
+      jsonPaths:
+        - $.version
+    - Chart.yaml:
+      jsonPaths:
+        - $.appVersion
+    - values.yaml:
+      jsonPaths:
+        - $.buslog.image.tag
+        - $.ctrlr.image.tag
+        - $.flask-ui.image.tag
