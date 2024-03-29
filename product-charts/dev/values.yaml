@@ -1,0 +1,19 @@
+replicaCount: 1
+image:
+  repository: xeonalex/guesbook
+  tag: '0.2'
+  pullPolicy: IfNotPresent
+service:
+  type: ClusterIP
+  port: 80
+ingress:
+  enabled: false
+  annotations: {}
+  path: /
+  hosts:
+    - chart-example.local
+  tls: []
+resources: {}
+nodeSelector: {}
+tolerations: []
+affinity: {}
