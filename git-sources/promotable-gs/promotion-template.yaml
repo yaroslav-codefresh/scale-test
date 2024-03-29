@@ -17,6 +17,7 @@ spec:
         - $.version
     Chart.yaml:
       jsonPaths:
+        - $.version
         - $.appVersion
     values.yaml:
       jsonPaths:
