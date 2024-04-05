@@ -1,0 +1,131 @@
+metadata:
+  monitoringHost: rc-paying-us-east-1-eks-02.cf-cd.com
+  name: system/re-images-e2e/cf-docker-builder
+  agent: false
+description: System RE for cf-docker-builder e2e pipeline
+extends:
+  - system/linux_paying_plan
+runtimeScheduler:
+  image: 'us-docker.pkg.dev/codefresh-inc/public-gcr-io/codefresh/engine:1.169.6'
+  command:
+    - node
+    - dist/server/index.js
+    - start
+  envVars:
+    CR_6177_FIXER: 'quay.io/codefresh/alpine:edge'
+    CONTAINER_LOGGER_IMAGE: 'quay.io/codefresh/cf-container-logger:1.11.0'
+    DOCKER_BUILDER_IMAGE: 'quay.io/codefresh/cf-docker-builder:1.3.11'
+    DOCKER_PULLER_IMAGE: 'quay.io/codefresh/cf-docker-puller:8.0.16'
+    DOCKER_PUSHER_IMAGE: 'quay.io/codefresh/cf-docker-pusher:6.0.15'
+    DOCKER_TAG_PUSHER_IMAGE: 'quay.io/codefresh/cf-docker-tag-pusher:1.3.13'
+    GIT_CLONE_IMAGE: 'quay.io/codefresh/cf-git-cloner:10.1.26'
+    COMPOSE_IMAGE: 'quay.io/codefresh/compose:v2.20.3-1.4.0'
+    KUBE_DEPLOY: 'quay.io/codefresh/cf-deploy-kubernetes:16.2.6'
+    FS_OPS_IMAGE: 'quay.io/codefresh/fs-ops:1.2.7'
+    TEMPLATE_ENGINE: 'quay.io/codefresh/pikolo:0.14.0'
+    PIPELINE_DEBUGGER_IMAGE: 'quay.io/codefresh/cf-debugger:1.3.5'
+    GC_BUILDER_IMAGE: 'quay.io/codefresh/cf-gc-builder:0.5.3'
+    CONTAINER_LOGGER_SHOW_PROGRESS: 'true'
+    CONTAINER_LOGGER_EXEC_TIMEOUT: '1800000'
+    NODE_OPTIONS: '--max-old-space-size=1536'
+    LOGGER_LEVEL: debug
+    NODE_ENV: kubernetes
+    METRICS_PROMETHEUS_ENABLED: 'true'
+    METRICS_CODEFRESH_ENABLED: 'true'
+    DISABLE_WORKSPACE_CACHE: 'true'
+  workflowLimits:
+    MAXIMUM_ALLOWED_WORKFLOW_AGE_BEFORE_TERMINATION: 86400
+    SHOULD_CLEAN_PVCS: false
+    SHOULD_KEEP_PVC_FOR_PENDING_APPROVAL: false
+    TIME_INACTIVE_UNTIL_TERMINATION: 2700
+    MAXIMUM_ELECTED_STATE_AGE_ALLOWED: 900
+    MAXIMUM_ALLOWED_TIME_BEFORE_PRE_STEPS_SUCCESS: 300
+  terminationGracePeriodSeconds: 180
+  annotations:
+    karpenter.sh/do-not-evict: 'true'
+    karpenter.sh/do-not-disrupt: 'true'
+  type: KubernetesPod
+  cluster:
+    namespace: workflow
+    kubeconfigFilePath: /etc/kubeconfig/prod-ue1-runtime-paying-2.cf-cd.com
+    nodeSelector:
+      node-type: engine-arm
+    name: prod-ue1-runtime-paying-2.cf-cd.com
+  resources:
+    requests:
+      cpu: 60m
+      memory: 1024Mi
+    limits:
+      cpu: 1000m
+      memory: 2048Mi
+  schedulerName: default-scheduler
+  internalInfra: true
+  tolerations:
+    - effect: NoSchedule
+      key: codefresh.io
+      operator: Equal
+      value: engines-arm
+dockerDaemonScheduler:
+  internalInfra: true
+  dindImage: 'quay.io/codefresh/dind:24.0.6-1.28.3'
+  annotations:
+    karpenter.sh/do-not-evict: 'true'
+    karpenter.sh/do-not-disrupt: 'true'
+  dedicatedCustomer: true
+  type: DindPodPvc
+  cluster:
+    namespace: workflow
+    kubeconfigFilePath: /etc/kubeconfig/prod-ue1-runtime-paying-2.cf-cd.com
+    nodeSelector:
+      node-type: dind
+    name: prod-ue1-runtime-paying-2.cf-cd.com
+  pvcs:
+    - name: dind
+      storageClassName: dind-ebs-csi-us-east-1a
+      volumeSize: 30Gi
+      reuseVolumeSelector: 'codefresh-app,io.codefresh.accountName'
+      reuseVolumeSortOrder: pipeline_id
+  clientCertPath: /etc/ssl/cf/
+  envVars:
+    WRITE_TERMINATION_MESSAGE: 'true'
+    ENABLED_COLLECTORS: 'diskstats,stat'
+    CLEAN_DOCKER: 'true'
+    CLEAN_PERIOD_BUILDS: '5'
+    IMAGE_RETAIN_PERIOD: '18000'
+    VOLUMES_RETAIN_PERIOD: '18000'
+  nodeWaitTimeout: 600
+  terminationGracePeriodSeconds: 900
+  notCheckServerCa: true
+  defaultDindResources:
+    requests:
+      cpu: 900m
+      memory: 1024Mi
+    limits:
+      cpu: 2500m
+      memory: 7168Mi
+  volumeMounts:
+    cf-certs-dind:
+      name: cf-certs-dind
+      mountPath: /etc/ssl/cf
+      readOnly: true
+    dshm:
+      name: dshm
+      mountPath: /dev/shm
+  volumes:
+    cf-certs-dind:
+      name: cf-certs-dind
+      secret:
+        secretName: cf-certs-dind
+    dshm:
+      name: dshm
+      emptyDir:
+        medium: Memory
+  schedulerName: default-scheduler
+  tolerations:
+    - key: codefresh.io
+      operator: Equal
+      value: dinds
+      effect: NoSchedule
+nonComplete: false
+environmentCertPath: /etc/ssl/cf/
+status: {}

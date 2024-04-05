@@ -1,0 +1,192 @@
+version: 754
+metadata:
+  name: shared-svc-ue1-runtime-inc-1/cf-runtime
+  agent: true
+  changedBy: integration
+  creationTime: '2024/02/23 17:51:23'
+runtimeScheduler:
+  type: KubernetesPod
+  image: 'quay.io/codefresh/engine:1.169.5'
+  command:
+    - npm
+    - run
+    - start
+  envVars:
+    METRICS_PROMETHEUS_ENABLED: 'true'
+    COMPOSE_IMAGE: 'quay.io/codefresh/compose:v2.20.3-1.4.0'
+    CONTAINER_LOGGER_IMAGE: 'quay.io/codefresh/cf-container-logger:1.10.3'
+    DOCKER_BUILDER_IMAGE: 'quay.io/codefresh/cf-docker-builder:1.3.11'
+    DOCKER_PULLER_IMAGE: 'quay.io/codefresh/cf-docker-puller:8.0.16'
+    DOCKER_PUSHER_IMAGE: 'quay.io/codefresh/cf-docker-pusher:6.0.15'
+    DOCKER_TAG_PUSHER_IMAGE: 'quay.io/codefresh/cf-docker-tag-pusher:1.3.13'
+    FS_OPS_IMAGE: 'quay.io/codefresh/fs-ops:1.2.6'
+    GIT_CLONE_IMAGE: 'quay.io/codefresh/cf-git-cloner:10.1.25'
+    KUBE_DEPLOY: 'quay.io/codefresh/cf-deploy-kubernetes:16.1.11'
+    PIPELINE_DEBUGGER_IMAGE: 'quay.io/codefresh/cf-debugger:1.3.0'
+    TEMPLATE_ENGINE: 'quay.io/codefresh/pikolo:0.14.0'
+  userEnvVars:
+    - name: AWS_ACCESS_KEY_ID
+      valueFrom:
+        secretKeyRef:
+          key: AWS_ACCESS_KEY_ID
+          name: regctl-static-creds
+    - name: AWS_SECRET_ACCESS_KEY
+      valueFrom:
+        secretKeyRef:
+          key: AWS_SECRET_ACCESS_KEY
+          name: regctl-static-creds
+    - name: GCR_SA_KEY_B64
+      valueFrom:
+        secretKeyRef:
+          key: GCR_SA_KEY_B64
+          name: regctl-static-creds
+    - name: QUAY_PASSWORD
+      valueFrom:
+        secretKeyRef:
+          key: QUAY_PASSWORD
+          name: regctl-static-creds
+    - name: QUAY_HOSTNAME
+      valueFrom:
+        secretKeyRef:
+          key: QUAY_HOSTNAME
+          name: regctl-static-creds
+    - name: QUAY_USERNAME
+      valueFrom:
+        secretKeyRef:
+          key: QUAY_USERNAME
+          name: regctl-static-creds
+    - name: GITHUB_TOKEN
+      valueFrom:
+        secretKeyRef:
+          key: GITHUB_TOKEN
+          name: github-token
+    - name: DOCKERHUB_USERNAME
+      valueFrom:
+        secretKeyRef:
+          key: DOCKERHUB_USERNAME
+          name: regctl-static-creds
+    - name: DOCKERHUB_PASSWORD
+      valueFrom:
+        secretKeyRef:
+          key: DOCKERHUB_PASSWORD
+          name: regctl-static-creds
+    - name: GCR_USERNAME
+      valueFrom:
+        secretKeyRef:
+          key: GCR_USERNAME
+          name: regctl-static-creds
+    - name: GCR_PASSWORD
+      valueFrom:
+        secretKeyRef:
+          key: GCR_PASSWORD
+          name: regctl-static-creds
+    - name: TW_CONSOLE
+      valueFrom:
+        secretKeyRef:
+          key: TW_CONSOLE
+          name: prisma-creds
+    - name: TW_USERNAME
+      valueFrom:
+        secretKeyRef:
+          key: TW_USERNAME
+          name: prisma-creds
+    - name: TW_PASSWORD
+      valueFrom:
+        secretKeyRef:
+          key: TW_PASSWORD
+          name: prisma-creds
+  cluster:
+    namespace: cf-runtime
+    serviceAccount: codefresh-engine
+    clusterProvider:
+      accountId: 5672d8deb6724b6e359adf62
+      selector: shared-svc-ue1-runtime-inc-1
+    nodeSelector:
+      node-type: engine
+      topology.kubernetes.io/zone: us-east-1a
+  tolerations:
+    - effect: NoSchedule
+      key: codefresh.io
+      operator: Equal
+      value: engines
+  annotations:
+    karpenter.sh/do-not-disrupt: 'true'
+    karpenter.sh/do-not-evict: 'true'
+  resources:
+    limits:
+      cpu: 1000m
+      memory: 2048Mi
+    requests:
+      cpu: 100m
+      memory: 128Mi
+dockerDaemonScheduler:
+  type: DindKubernetesPod
+  dindImage: 'quay.io/codefresh/dind:24.0.6-1.28.3'
+  userAccess: true
+  cluster:
+    namespace: cf-runtime
+    serviceAccount: codefresh-engine
+    clusterProvider:
+      accountId: 5672d8deb6724b6e359adf62
+      selector: shared-svc-ue1-runtime-inc-1
+    nodeSelector:
+      node-type: dind
+      topology.kubernetes.io/zone: us-east-1a
+  tolerations:
+    - effect: NoSchedule
+      key: codefresh.io
+      operator: Equal
+      value: dinds
+  annotations:
+    karpenter.sh/do-not-disrupt: 'true'
+    karpenter.sh/do-not-evict: 'true'
+  pvcs:
+    - name: dind
+      reuseVolumeSelector: 'codefresh-app,io.codefresh.accountName'
+      reuseVolumeSortOrder: pipeline_id
+      storageClassName: dind-local-volumes-runner-cf-runtime
+      volumeSize: 48Gi
+  defaultDindResources:
+    limits:
+      cpu: 4000m
+      memory: 8192Mi
+    requests: null
+  userVolumeMounts:
+    cosign-key-pair:
+      mountPath: /cosign-key-pair/
+      name: cosign-key-pair
+      readOnly: true
+    regctl-dockerconfigjson:
+      mountPath: /home/appuser/.docker/
+      name: regctl-dockerconfigjson
+      readOnly: true
+    regctl-dockerconfigjson-root:
+      mountPath: /.docker/
+      name: regctl-dockerconfigjson
+      readOnly: true
+  userVolumes:
+    cosign-key-pair:
+      name: cosign-key-pair
+      secret:
+        items:
+          - key: cosign.key
+            path: cosign.key
+          - key: cosign.pub
+            path: cosign.pub
+        optional: true
+        secretName: cosign-key-pair
+    regctl-dockerconfigjson:
+      name: regctl-dockerconfigjson
+      secret:
+        items:
+          - key: .dockerconfigjson
+            path: config.json
+        optional: true
+        secretName: regctl-dockerconfigjson
+extends:
+  - system/default/hybrid/k8s_low_limits
+description: null
+accountId: 5672d8deb6724b6e359adf62
+appProxy:
+  externalIP: 'https://shared-svc-ue1-runtime-inc-1.shared-services.cf-infra.com'
+

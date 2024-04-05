@@ -1,0 +1,15 @@
+version: 159
+metadata:
+  name: system/linux_paying_plan
+dockerDaemonScheduler:
+  defaultDindResources:
+    limits:
+      cpu: 2500m
+      memory: 7168Mi
+      dindStorage: 30Gi
+extends:
+  - system/default-plan
+description: MAIN Linux runtime for paying customers
+isPublic: true
+nonComplete: true
+

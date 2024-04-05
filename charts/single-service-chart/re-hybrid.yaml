@@ -1,0 +1,15 @@
+version: 62
+metadata:
+  name: system/default/hybrid/k8s
+dockerDaemonScheduler:
+  defaultDindResources:
+    limits:
+      cpu: 2500m
+      memory: 4096Mi
+      dindStorage: 15Gi
+extends:
+  - system/root
+description: System hybrid runtime environment for kubernetes
+isPublic: true
+nonComplete: true
+

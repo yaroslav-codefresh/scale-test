@@ -1,0 +1,15 @@
+version: 127
+metadata:
+  name: system/default-plan
+dockerDaemonScheduler:
+  defaultDindResources:
+    limits:
+      cpu: 2000m
+      memory: 4096Mi
+      dindStorage: 15Gi
+extends:
+  - system/root
+description: Default template for plan runtime environments
+isPublic: true
+nonComplete: true
+
