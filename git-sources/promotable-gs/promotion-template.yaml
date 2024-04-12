@@ -9,8 +9,8 @@ spec:
         operator: Exists
   priority: 0
   versionSource:
-    file: Chart.yaml
-    jsonPath: $.appVersion
+    file: values.yaml
+    jsonPath: $.image.tag
   promotion:
     values.yaml:
       jsonPaths:
