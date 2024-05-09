@@ -39,7 +39,7 @@ spec:
               description: ProductSpec defines the desired state of Product
               properties:
                 promotionFlows:
-                  additionalProperties:
+                  items:
                     description: ProductPromotionFlowsSelectors defines all selectors
                       to use one specific PromotionFlow
                     properties:
@@ -65,10 +65,13 @@ spec:
                             - values
                           type: object
                         type: array
+                      name:
+                        description: Name of promotion flows
+                        type: string
                     type: object
                   description: PromotionFlows is a map, where keys are promotion flow
                     names and values are their relavent matchers.
-                  type: object
+                  type: array
                 promotionTemplate:
                   description: PromotionTemplate is used to define a custom template
                     for the product
