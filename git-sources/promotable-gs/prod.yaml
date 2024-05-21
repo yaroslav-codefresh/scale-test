@@ -13,8 +13,8 @@ spec:
     repoURL: https://github.com/yaroslav-codefresh/scale-test
     targetRevision: HEAD
   destination:
-    name: hermes-yarik
-    namespace: promotable-app
+    name: in-cluster
+    namespace: promotable-app-prod
   syncPolicy:
     automated:
       prune: true
