@@ -11,7 +11,7 @@ spec:
   source:
     path: product-charts/dev
     repoURL: https://github.com/yaroslav-codefresh/scale-test
-    targetRevision: release-3
+    targetRevision: release-1
   destination:
     name: in-cluster
     namespace: promotable-app
