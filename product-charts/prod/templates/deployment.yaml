@@ -1,10 +1,10 @@
 apiVersion: argoproj.io/v1alpha1
 kind: Rollout
 metadata:
-  name: {{ template "prod.fullname" . }}
+  name: {{ template "dev.fullname" . }}
   labels:
-    app: {{ template "prod.name" . }}
-    chart: {{ template "prod.chart" . }}
+    app: {{ template "dev.name" . }}
+    chart: {{ template "dev.chart" . }}
     release: {{ .Release.Name }}
     heritage: {{ .Release.Service }}
 spec:
@@ -16,18 +16,14 @@ spec:
       steps:
         - setWeight: 25
         - pause: {duration: 15}
-        - setWeight: 50
-        - pause: {duration: 15}
-        - setWeight: 75
-        - pause: {duration: 15}
   selector:
     matchLabels:
-      app: {{ template "prod.name" . }}
+      app: {{ template "dev.name" . }}
       release: {{ .Release.Name }}
   template:
     metadata:
       labels:
-        app: {{ template "prod.name" . }}
+        app: {{ template "dev.name" . }}
         release: {{ .Release.Name }}
     spec:
       containers:
