@@ -14,7 +14,7 @@ spec:
     targetRevision: HEAD
   destination:
     name: in-cluster
-    namespace: promotable-app
+    namespace: promotable-app-prod
   syncPolicy:
     automated:
       prune: true
