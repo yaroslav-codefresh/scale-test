@@ -24,7 +24,7 @@ spec:
       - PrunePropagationPolicy=foreground
       - Replace=false
       - PruneLast=false
-      - Validate=false
+      - Validate=true
       - CreateNamespace=true
       - ApplyOutOfSyncOnly=false
       - ServerSideApply=false
