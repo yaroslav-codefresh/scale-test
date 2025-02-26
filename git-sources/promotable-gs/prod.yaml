@@ -1,31 +1,31 @@
-#apiVersion: argoproj.io/v1alpha1
-#kind: Application
-#metadata:
-#  name: prod-promotable-app
-#  annotations:
-#    "codefresh.io/product": promotable-app-1
-#  finalizers:
-#    - resources-finalizer.argocd.argoproj.io/foreground
-#spec:
-#  project: default
-#  source:
-#    path: product-charts/prod
-#    repoURL: https://github.com/yaroslav-codefresh/scale-test
-#    targetRevision: HEAD
-#  destination:
-#    name: in-cluster
-#    namespace: promotable-app-prod
-#  syncPolicy:
-#    automated:
-#      prune: true
-#      selfHeal: true
-#      allowEmpty: true
-#    syncOptions:
-#      - PrunePropagationPolicy=foreground
-#      - Replace=false
-#      - PruneLast=false
-#      - Validate=true
-#      - CreateNamespace=true
-#      - ApplyOutOfSyncOnly=false
-#      - ServerSideApply=false
-#      - RespectIgnoreDifferences=false
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: prod-promotable-app
+  annotations:
+    "codefresh.io/product": promotable-app-1
+  finalizers:
+    - resources-finalizer.argocd.argoproj.io/foreground
+spec:
+  project: default
+  source:
+    path: product-charts/prod
+    repoURL: https://github.com/yaroslav-codefresh/scale-test
+    targetRevision: HEAD
+  destination:
+    name: in-cluster
+    namespace: promotable-app-prod
+  syncPolicy:
+    automated:
+      prune: true
+      selfHeal: true
+      allowEmpty: true
+    syncOptions:
+      - PrunePropagationPolicy=foreground
+      - Replace=false
+      - PruneLast=false
+      - Validate=true
+      - CreateNamespace=true
+      - ApplyOutOfSyncOnly=false
+      - ServerSideApply=false
+      - RespectIgnoreDifferences=false
