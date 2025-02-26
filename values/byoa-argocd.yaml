@@ -1,0 +1,5 @@
+configs:
+  cm:
+    accounts.admin: apiKey,login
+  params:
+    server.insecure: true
