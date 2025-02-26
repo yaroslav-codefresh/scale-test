@@ -3,7 +3,7 @@ kind: Application
 metadata:
   name: prod-promotable-app
   annotations:
-    "codefresh.io/product": promotable-app
+    "codefresh.io/product": promotable-app-1
   finalizers:
     - resources-finalizer.argocd.argoproj.io/foreground
 spec:
