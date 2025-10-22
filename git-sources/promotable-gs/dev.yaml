@@ -1,11 +1,11 @@
 apiVersion: argoproj.io/v1alpha1
 kind: Application
 metadata:
-  name: dev-promotable-app
-  annotations:
-    "codefresh.io/product": promotable-app
+  name: dev-promotable-app-1
   finalizers:
     - resources-finalizer.argocd.argoproj.io/foreground
+  annotations:
+    codefresh.io/product: promotable-app-1
 spec:
   project: default
   source:
